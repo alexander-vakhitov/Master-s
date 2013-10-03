@@ -1,0 +1,27 @@
+
+dataDir = './ain_data';
+resultsDir = 'ain_results_1';
+
+>> %% MVI_4068.avi
+inFile = fullfile(dataDir,'MVI_4068.avi');
+fprintf('Processing %s\n', inFile);
+amplify_spatial_Gdown_temporal_ideal(inFile,resultsDir,50,4, ...
+                     50/60,60/60,30, 1);
+Processing .\ain_data\MVI_4068.avi
+Spatial filtering...
+
+#39 line build_GDown_stack
+
+39      GDown_stack(1,:,:,:) = blurred;
+K>> size(GDown_stack);
+K>> size(GDown_stack)
+
+ans =
+
+   239    37    33     3
+
+K>> plot(GDown_stack(:,10,10,1))
+Finished
+Temporal filtering...
+#56 line in amplify spacial Gdown_temproal_ideal
+K>> plot(filtered_stack(:,10,10,1))

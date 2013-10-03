@@ -1,0 +1,9 @@
+K>> plot(max(filtered_stack(:,:,20,1)))
+K>> max(filtered_stack(:,:,20,1))
+
+K>> [val,ind] = max(filtered_stack(:,:,20,1))
+[val,ind] = max(max(filtered_stack(:,:,20,1)))
+
+
+
+find(max(filtered_stack(:,:,20,1))>2e-3)

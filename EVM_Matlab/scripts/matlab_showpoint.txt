@@ -1,0 +1,3 @@
+%inp1 = Gdown_stack(1,:,:,1)
+inp1 = reshape(Gdown_stack(1,:,:,1), 37,33)
+ inp1(29,20)=0
