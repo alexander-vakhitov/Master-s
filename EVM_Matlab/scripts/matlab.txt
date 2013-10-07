@@ -1,5 +1,5 @@
 
-dataDir = './ain_data';
+dataDir = './data';
 resultsDir = 'ain_results_1';
 
 >> %% MVI_4068.avi
