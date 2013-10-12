@@ -12,14 +12,13 @@
 % License: Please refer to the LICENCE file
 % Date: June 2012
 %
-function amplify_spatial_Gdown_temporal_ideal_ain_noblur(vidFile,outDir,alpha,level, ...
+function amplify_spatial_Gdown_temporal_ideal_noIB_noblur(vidFile,outDir,alpha,level, ...
                      fl,fh,samplingRate, chromAttenuation)
  
 
     [~,vidName] = fileparts(vidFile);
 
-    outName = fullfile(outDir,[vidName '-ideal-from-' num2str(fl) ...
-                           '-to-' num2str(fh) ...
+    outName = fullfile(outDir,[vidName '-no-IB-no-blur-'  ...
                            '-alpha-' num2str(alpha) ...
                            '-level-' num2str(level) ...
                            '-chromAtn-' num2str(chromAttenuation) '.avi']);
@@ -52,7 +51,7 @@ function amplify_spatial_Gdown_temporal_ideal_ain_noblur(vidFile,outDir,alpha,le
     
     % Temporal filtering
     disp('Temporal filtering...')
-    filtered_stack = ideal_bandpassing_ain(Gdown_stack, 1, fl, fh, samplingRate);
+    filtered_stack = ideal_bandpassing_noIB(Gdown_stack, 1, fl, fh, samplingRate);
     disp('Finished')
     
     %% amplify
