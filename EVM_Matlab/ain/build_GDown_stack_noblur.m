@@ -16,7 +16,8 @@
 % License: Please refer to the LICENCE file
 % Date: June 2012
 %
-function GDown_stack = build_GDown_stack_noblur(vidFile, startIndex, endIndex, level)
+function GDown_stack = build_GDown_stack_noblur(vidFile, outDir, mode, startIndex, endIndex, level)
+global cur_file;
 
     % Read video
     vid = VideoReader(vidFile);
@@ -51,5 +52,6 @@ function GDown_stack = build_GDown_stack_noblur(vidFile, startIndex, endIndex, l
             GDown_stack(k,:,:,:) = blurred;
 
     end
-    
+ fig=plot(GDown_stack(:,10,10,1));
+ saveas(fig, fullfile(outDir,[cur_file mode '.fig']));
 end

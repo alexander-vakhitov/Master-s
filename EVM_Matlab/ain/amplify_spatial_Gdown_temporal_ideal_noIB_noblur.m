@@ -12,13 +12,13 @@
 % License: Please refer to the LICENCE file
 % Date: June 2012
 %
-function amplify_spatial_Gdown_temporal_ideal_noIB(vidFile,outDir,alpha,level, ...
+function amplify_spatial_Gdown_temporal_ideal_noIB_noblur(vidFile,outDir,alpha,level, ...
                      fl,fh,samplingRate, chromAttenuation)
  
-
+    mode='-no-IB-no-blur';
     [~,vidName] = fileparts(vidFile);
 
-    outName = fullfile(outDir,[vidName '-no-IB'  ...
+    outName = fullfile(outDir,[vidName '-no-IB-no-blur'  ...
                            '-alpha-' num2str(alpha) ...
                            '-level-' num2str(level) ...
                            '-chromAtn-' num2str(chromAttenuation) '.avi']);
@@ -45,7 +45,7 @@ function amplify_spatial_Gdown_temporal_ideal_noIB(vidFile,outDir,alpha,level, .
 
     % compute Gaussian blur stack
     disp('Spatial filtering...')
-    Gdown_stack = build_GDown_stack(vidFile, startIndex, endIndex, level);
+    Gdown_stack = build_GDown_stack_noblur(vidFile, outDir, mode, startIndex, endIndex, level);
     disp('Finished')
     
     
