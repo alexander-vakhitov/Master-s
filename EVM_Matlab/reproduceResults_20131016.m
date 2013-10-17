@@ -25,7 +25,7 @@ for i=1:3
 inFile = fullfile(dataDir, [filename{i} '.avi']);
 cur_file=filename{i};
 fprintf('Processing %s\n', inFile);
-amplify_spatial_Gdown_temporal_ideal(inFile,resultsDir,50,4, ...
+amplify_spatial_Gdown_temporal_ideal_ain(inFile,resultsDir,50,4, ...
                      50/60,60/60,30, 1);
 end;
 

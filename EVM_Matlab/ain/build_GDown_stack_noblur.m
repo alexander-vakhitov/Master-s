@@ -48,10 +48,17 @@ global cur_file;
             rgbframe = im2double(rgbframe);
             frame = rgb2ntsc(rgbframe);
 
-            blurred = blurDnClr(frame,level);
+            blurred = imresize(frame,1/16);
             GDown_stack(k,:,:,:) = blurred;
 
     end
  fig=plot(GDown_stack(:,10,10,1));
- saveas(fig, fullfile(outDir,[cur_file mode '.fig']));
+ title([cur_file ' ' mode ' channel 1'])
+ saveas(fig, fullfile(outDir,[cur_file mode '-1-.fig']));
+  fig=plot(GDown_stack(:,10,10,2));
+ title([cur_file ' ' mode ' channel 2'])
+  saveas(fig, fullfile(outDir,[cur_file mode '-2-.fig']));
+  fig=plot(GDown_stack(:,10,10,3));
+ title([cur_file ' ' mode ' channel 3'])
+  saveas(fig, fullfile(outDir,[cur_file mode '-3-.fig']));
 end
