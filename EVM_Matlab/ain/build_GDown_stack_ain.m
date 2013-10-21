@@ -16,8 +16,8 @@
 % License: Please refer to the LICENCE file
 % Date: June 2012
 %
-function GDown_stack = build_GDown_stack_ain(vidFile, outDir, mode, startIndex, endIndex, level)
-global cur_file;
+function GDown_stack = build_GDown_stack_ain(vidFile,  startIndex, endIndex, level)
+
     % Read video
     vid = VideoReader(vidFile);
     % Extract video info
@@ -51,13 +51,5 @@ global cur_file;
             GDown_stack(k,:,:,:) = blurred;
 
     end
- fig=plot(GDown_stack(:,10,10,1));
- title([cur_file ' ' mode ' channel 1'])
- saveas(fig, fullfile(outDir,[cur_file mode '-1-.fig']));
-  fig=plot(GDown_stack(:,10,10,2));
- title([cur_file ' ' mode ' channel 2'])
-  saveas(fig, fullfile(outDir,[cur_file mode '-2-.fig']));
-  fig=plot(GDown_stack(:,10,10,3));
- title([cur_file ' ' mode ' channel 3'])
-  saveas(fig, fullfile(outDir,[cur_file mode '-3-.fig']));
+
 end

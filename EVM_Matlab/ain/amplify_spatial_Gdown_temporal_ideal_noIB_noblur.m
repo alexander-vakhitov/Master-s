@@ -45,7 +45,7 @@ function amplify_spatial_Gdown_temporal_ideal_noIB_noblur(vidFile,outDir,alpha,l
 
     % compute Gaussian blur stack
     disp('Spatial filtering...')
-    Gdown_stack = build_GDown_stack_noblur(vidFile, outDir, mode, startIndex, endIndex, level);
+    Gdown_stack = build_GDown_stack_noblur(vidFile, startIndex, endIndex, level);
     disp('Finished')
     
     
@@ -53,6 +53,10 @@ function amplify_spatial_Gdown_temporal_ideal_noIB_noblur(vidFile,outDir,alpha,l
     disp('Temporal filtering...')
     filtered_stack = ideal_bandpassing_noIB(Gdown_stack, 1, fl, fh, samplingRate);
     disp('Finished')
+    
+    %pretty graphs
+    disp('Graphing...')
+    pretty_graphs(vidName, outDir, mode, filtered_stack);
     
     %% amplify
     filtered_stack(:,:,:,1) = filtered_stack(:,:,:,1) .* alpha;

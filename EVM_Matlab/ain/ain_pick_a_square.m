@@ -8,7 +8,7 @@
 
 function ain_pick_a_square(vidFile,outDir,x0 , x1, y0, y1)
  mode='-crop-';
-global cur_file;
+
 
  cropwindow = [x0 x1 y0 y1];
  
@@ -68,16 +68,17 @@ global cur_file;
     end
    disp('Stack built...')
    disp('Making graphs...')
-      fig= plot(mean(mean(Stack(:,:,:,1),2),3))
-    title([cur_file ' ' mode '-' num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-channel 1'])
-  saveas(fig, fullfile(outDir,[cur_file mode num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-1-.fig']));
-   fig= plot(mean(mean(Stack(:,:,:,2),2),3))
-  title([cur_file ' ' mode '-' num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-channel 2'])
-   saveas(fig, fullfile(outDir,[cur_file mode num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-2-.fig']));
-   fig= plot(mean(mean(Stack(:,:,:,3),2),3))
-  title([cur_file ' ' mode '-' num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-channel 3'])
-   saveas(fig, fullfile(outDir,[cur_file mode num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1)  '-3-.fig']));
-   
+%       fig= plot(mean(mean(Stack(:,:,:,1),2),3))
+%     title([vidName ' ' mode '-' num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-channel 1'])
+%   saveas(fig, fullfile(outDir,[vidName mode num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-1-.fig']));
+%    fig= plot(mean(mean(Stack(:,:,:,2),2),3))
+%   title([vidName ' ' mode '-' num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-channel 2'])
+%    saveas(fig, fullfile(outDir,[vidName mode num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-2-.fig']));
+%    fig= plot(mean(mean(Stack(:,:,:,3),2),3))
+%   title([vidName ' ' mode '-' num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1) '-channel 3'])
+%    saveas(fig, fullfile(outDir,[vidName mode num2str(x0) '-' num2str(x1) '-' num2str(y0) '-' num2str(y1)  '-3-.fig']));
+pretty_graphs(vidName, outDir, mode, Stack, x0, x1, y0, y1);
+
     disp('Finished')
     
    

@@ -15,7 +15,6 @@
 function amplify_spatial_Gdown_temporal_ideal_noIB(vidFile,outDir,alpha,level, ...
                      fl,fh,samplingRate, chromAttenuation)
  mode='-no-IB';
-
     [~,vidName] = fileparts(vidFile);
 
     outName = fullfile(outDir,[vidName '-no-IB'  ...
@@ -45,7 +44,7 @@ function amplify_spatial_Gdown_temporal_ideal_noIB(vidFile,outDir,alpha,level, .
 
     % compute Gaussian blur stack
     disp('Spatial filtering...')
-    Gdown_stack = build_GDown_stack_ain(vidFile, outDir, mode, startIndex, endIndex, level);
+    Gdown_stack = build_GDown_stack_ain(vidFile, startIndex, endIndex, level);
     disp('Finished')
     
     
@@ -54,6 +53,11 @@ function amplify_spatial_Gdown_temporal_ideal_noIB(vidFile,outDir,alpha,level, .
     filtered_stack = ideal_bandpassing_noIB(Gdown_stack, 1, fl, fh, samplingRate);
     disp('Finished')
     
+    
+        %pretty graphs
+    disp('Graphing...')
+ pretty_graphs(vidName, outDir, mode, filtered_stack); 
+  
     %% amplify
     filtered_stack(:,:,:,1) = filtered_stack(:,:,:,1) .* alpha;
     filtered_stack(:,:,:,2) = filtered_stack(:,:,:,2) .* alpha .* chromAttenuation;

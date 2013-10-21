@@ -15,7 +15,6 @@
 function amplify_spatial_Gdown_temporal_ideal_ain(vidFile,outDir,alpha,level, ...
                      fl,fh,samplingRate, chromAttenuation)
  mode='';
-
     [~,vidName] = fileparts(vidFile);
 
     outName = fullfile(outDir,[vidName '-ideal-from-' num2str(fl) ...
@@ -46,7 +45,7 @@ function amplify_spatial_Gdown_temporal_ideal_ain(vidFile,outDir,alpha,level, ..
 
     % compute Gaussian blur stack
     disp('Spatial filtering...')
-    Gdown_stack = build_GDown_stack_ain(vidFile, outDir, mode, startIndex, endIndex, level);
+    Gdown_stack = build_GDown_stack_ain(vidFile, startIndex, endIndex, level);
     disp('Finished')
     
     
@@ -60,6 +59,9 @@ function amplify_spatial_Gdown_temporal_ideal_ain(vidFile,outDir,alpha,level, ..
     filtered_stack(:,:,:,2) = filtered_stack(:,:,:,2) .* alpha .* chromAttenuation;
     filtered_stack(:,:,:,3) = filtered_stack(:,:,:,3) .* alpha .* chromAttenuation;
 
+    %pretty graphs
+    disp('Graphing...')
+pretty_graphs(vidName, outDir, mode, filtered_stack);
 
 
     %% Render on the input video
