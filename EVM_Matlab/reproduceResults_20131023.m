@@ -4,7 +4,7 @@
 clear;
 
 dataDir = './data';
-resultsDir = 'ain_results-20131022t';
+resultsDir = 'ain_results-20131023';
 
 addpath(genpath('./ain'));
 
@@ -97,7 +97,7 @@ vidFile=inFile;
     temp = struct('cdata', zeros(vidHeight, vidWidth, nChannels, 'uint8'), 'colormap', []);
 
     startIndex = 1;
-    endIndex = len-10;
+ %   endIndex = len-10; 1 is one frame shorter then drawing
 
 %     vidOut = VideoWriter(outName);
 %     vidOut.FrameRate = fr;
@@ -136,9 +136,20 @@ vidFile=inFile;
    m=1;
    for i=startIndex+1:endIndex;
        m=m+1;
-       Stack_n=Stack_1(m,:,:,:)-Stack_d(m,:,:,:);
+       Stack_n(m,:,:,:)=Stack_1(m,:,:,:)-Stack_d(m,:,:,:);
+       disp (m);
    end;
-   plot(mean(mean(Stack_n(:,:,:,1),2),3));
+   disp ('New stack built...')
+   
+   fig = plot(mean(mean(Stack_n(:,:,:,1),2),3))
+   
+    title('difference 1 and drawing')
+    saveas(fig, fullfile(resultsDir, 'diff.fig'));
+     fft_n=fft(mean(mean(Stack_n(:,:,:,1),2),3));
+     fig=plot(abs(fft_n(2:741,:)));
+     title('FFT of difference 1 and drawing')
+     saveas(fig, fullfile(resultsDir, 'fft.fig'));
+     
    
 
 
