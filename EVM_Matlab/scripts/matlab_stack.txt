@@ -1,0 +1,11 @@
+fft_d=fftn(Stack_d(:,:,:,1));
+fft_1=fftn(Stack_1(:,:,:,1));
+
+
+
+filename = {'stabilized_4068', 'stabilized_4518', 'stabilized_4519', '1', 'drawing'};
+for i=size(filename,1):size(filename,2) 
+inFile = fullfile(dataDir, [filename{i} '.avi']);
+fprintf('Processing %s\n', inFile);
+
+end;
