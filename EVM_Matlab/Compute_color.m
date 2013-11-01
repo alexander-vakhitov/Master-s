@@ -18,7 +18,7 @@
 %(which are obviously none of).
 
 
-function [Constant_color, f, alpha] = Compute_color(vidFile, outDir, x0, x1, y0, y1)
+function [Constant_color, f, alpha] = Compute_color(vidFile, outDir, x0, y0, width, height)
 
 %Get the video file name
 [~,vidName] = fileparts(vidFile);
@@ -41,7 +41,7 @@ startIndex = 1;
 endIndex = len-10;
 
 %The part of the video that we're going to analyze
-cropwindow = [x0 x1 y0 y1];
+cropwindow = [x0 y0 width height];
 
 %Define frames
 temp.cdata = read(vid, startIndex);
@@ -98,7 +98,13 @@ for z=1: size(Color(:,:,:),1)
     ZConstant_color(z, :, 1) = Constant_color(1);
 end
 
- plot(Color(:,:,1)-ZConstant_color(:,:,1));
+A1=Color(:,:,1)-ZConstant_color(:,:,1);
+
+ FS = ideal_bandpassing(A1, 1, 50/60, 90/60, 23);
+
+ fig= plot(FS)
+title([vidName ' filtered frequencies']); 
+ length(findpeaks(FS))
 
  
 end
