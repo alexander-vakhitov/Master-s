@@ -47,7 +47,8 @@ cropwindow = [x0 y0 width height];
 temp.cdata = read(vid, startIndex);
 [rgbframe, ~] = frame2im(temp);
 rgbframe = im2double(rgbframe);
-frame = rgb2ntsc(rgbframe);
+%frame = rgb2ntsc(rgbframe); Canon 650D videos do not need this!
+frame=rgbframe;
 
 %Create the cropped stack
 cropped = imcrop(frame,cropwindow);
@@ -63,9 +64,11 @@ for j=startIndex+1:endIndex
     [rgbframe,~] = frame2im(temp);
 
     rgbframe = im2double(rgbframe);
-    frame = rgb2ntsc(rgbframe);
+%    frame = rgb2ntsc(rgbframe); Canon 650D videos do not need this!
+frame=rgbframe;
     cropped = imcrop(frame,cropwindow);
     Stack(k,:,:,:) = cropped;
+    disp(k);
 end
 
 Color(:,:,1)=mean(mean(Stack(:,:,:,1),2),3);
