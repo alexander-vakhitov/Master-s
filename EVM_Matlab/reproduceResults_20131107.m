@@ -1,7 +1,7 @@
 clear;
 
 dataDir = './data';
-resultsDir = 'ain_results-20131030';
+resultsDir = 'ain_results-20131107';
 
 addpath(genpath('./ain'));
 

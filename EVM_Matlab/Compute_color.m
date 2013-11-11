@@ -47,7 +47,7 @@ cropwindow = [x0 y0 width height];
 temp.cdata = read(vid, startIndex);
 [rgbframe, ~] = frame2im(temp);
 rgbframe = im2double(rgbframe);
-%frame = rgb2ntsc(rgbframe); Canon 650D videos do not need this!
+%frame = rgb2ntsc(rgbframe);% Canon 650D videos do not need this!
 frame=rgbframe;
 
 %Create the cropped stack
@@ -55,10 +55,12 @@ cropped = imcrop(frame,cropwindow);
 
 % create  stack
 Stack = zeros(endIndex - startIndex +1, size(cropped,1),size(cropped,2),size(cropped,3));
+%Stack = zeros(1001, size(cropped,1),size(cropped,2),size(cropped,3));
 Stack(1,:,:,:) = cropped;
 
 k = 1;
 for j=startIndex+1:endIndex
+%for j=400:1400
     k = k+1;
     temp.cdata = read(vid, j);
     [rgbframe,~] = frame2im(temp);
@@ -103,11 +105,43 @@ end
 
 A1=Color(:,:,1)-ZConstant_color(:,:,1);
 
- FS = ideal_bandpassing(A1, 1, 50/60, 90/60, 23);
-
- fig= plot(FS)
-title([vidName ' filtered frequencies']); 
- length(findpeaks(FS))
+ FS = ideal_bandpassing(A1, 1, 50/60, 90/60, 50);
 
  
+ % I want to put out the graph of the filtered stack
+ %With the number of peaks, frames, length of the video,
+ %and the heartrate marked on it right away
+ %Thus one picture would characterize the whole video.
+ fig= plot(FS)
+title([vidName ' filtered frequencies']); 
+hleg=legend([length(findpeaks(FS))], 'Location', 'EastOutside');
+saveas(fig, fullfile(outDir,[vidName 'FS-1-.fig']));
+ length(findpeaks(FS));
+
+ %Now, here I should be doing the discrete cosine transform in order to
+ %gather up what the heartrate function looks like.
+ DCT_FS=dct(FS, length(findpeaks(FS)));
+DCT_FS1=dct(FS, endIndex-10);
+ plot(DCT_FS1); 
+ 
 end
+
+
+% The right routine for MVI_3780
+% Stack_n=Stack(400:1400,:,:,:)
+% Stack_n=Stack(400:1400,:,:,:);
+% Color_n(:,:,1)=mean(mean(Stack_n(:,:,:,1),2),3);
+% clear Color_n
+% Color_n(:,:,1)=mean(mean(Stack_n(:,:,:,1),2),3);
+% clear Constant_color_n
+% Constant_color_n(1)=mean(Color_n(:,:,1));
+% ZConstant_color_n=zeros( size(Color_n(:,:,:),1), 1, 3);
+% for z=1: size(Color_n(:,:,:),1)
+% ZConstant_color_n(z, :, 1) = Constant_color_n(1);
+% end
+% A1_n=Color_n(:,:,1)-ZConstant_color_n(:,:,1);
+% plot(A1_n)
+% FS_n = ideal_bandpassing(A1_n, 1, 50/60, 90/60, 50);
+% plot(FS)
+% plot(FS_n)
+% length(findpeaks(FS_n))
