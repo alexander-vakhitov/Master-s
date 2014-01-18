@@ -15,10 +15,11 @@ function create_model (x_size, y_size, base_color, amp, length, ...
                         framerate, noise_strength, phi, strength)
  
  resultsDir = 'ain_results-20131112model';
- filename='20131112_model7.avi'                   
+ filename='20131112_model13'
+ %[~,name]=fileparts(filename);
  mkdir(resultsDir);
  
- vidOut = VideoWriter(fullfile(resultsDir,filename));
+ vidOut = VideoWriter(fullfile(resultsDir,[filename '.avi']));
   vidOut.FrameRate = framerate;  
   
   open(vidOut)
@@ -79,20 +80,25 @@ function create_model (x_size, y_size, base_color, amp, length, ...
   open(vidOut)
   
   
-  frame_num=0
+  frame_num=0;
   
   
   
   for frame_num=1:length
-      frame_num=frame_num+1
+      frame_num
   for x=1:x_size
       for y=1:y_size
           %rand*base_color is too much fun
           %large alpha is too large
           %2*sin is too much
-          Stack(frame_num,x,y,1)=cos(phi)*strength(1)*(base_color(1)+amp(1)*sin(frame_num/framerate))+0.1*(rand-.5);
-          Stack(frame_num,x,y,2)=cos(phi)*strength(2)*(base_color(2)+amp(2)*sin(frame_num/framerate))+0.1*(rand-.5);
-          Stack(frame_num,x,y,3)=cos(phi)*strength(3)*(base_color(3)+amp(3)*sin(frame_num/framerate))+0.1*(rand-.5);
+
+          %It should be total_light*color+noise.
+          %Where total_color=min(1, (ambient+diffuse)).
+          %Ambient is a periodical function of its own and diffuse is
+          %Lambertian lightning.
+          Stack(frame_num,x,y,1)=cos(phi)*strength(1)*(base_color(1)+amp(1)*sin(2*pi*frame_num/framerate))+0.1*(rand-.5);
+          Stack(frame_num,x,y,2)=cos(phi)*strength(2)*(base_color(2)+amp(2)*sin(2*pi*frame_num/framerate))+0.1*(rand-.5);
+          Stack(frame_num,x,y,3)=cos(phi)*strength(3)*(base_color(3)+amp(3)*sin(2*pi*frame_num/framerate))+0.1*(rand-.5);
       end
       
   end
@@ -100,7 +106,7 @@ function create_model (x_size, y_size, base_color, amp, length, ...
       writeVideo(vidOut,im2uint8(squeeze(Stack(frame_num,:,:,:))));              
                     
                     
-                    
+     frame_num=frame_num+1;               
                     
                     
   end
@@ -113,7 +119,7 @@ function create_model (x_size, y_size, base_color, amp, length, ...
                     
                     
     imshow([squeeze(Stack(100, :, :, :)) squeeze(Stack(400, :, :, :)); squeeze(Stack(800, :, :, :)) squeeze(Stack(1200, :, :, :))]);                
-                    
+   save(fullfile(resultsDir,[filename '_stack.mat']), 'Stack');                 
                     
                     
                     
