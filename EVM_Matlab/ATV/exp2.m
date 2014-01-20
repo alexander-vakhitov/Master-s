@@ -1,5 +1,5 @@
 function exp2
-    vidFile = 'c:\Digital Vision Labs\evm\EVM_Matlab-1.1\EVM_Matlab\data\MVI_4064.avi';
+    vidFile = 'F:\SPBSU\Masters\EVM_Matlab\data\warped.avi';
 
     % Read video
     vid = VideoReader(vidFile);
