@@ -1,4 +1,5 @@
-    vidFile = 'F:\SPBSU\Masters\EVM_Matlab\data\warped.avi';
+    %vidFile = 'C:\ResearchProjects\mpdepth\warped.avi';
+    vidFile = 'c:\Digital Vision Labs\evm\EVM_Matlab-1.1\EVM_Matlab\warped.avi';
     %vidFile = 'c:\Digital Vision Labs\evm\EVM_Matlab-1.1\EVM_Matlab\data\MVI_4064.avi';
 
     % Read video
@@ -13,13 +14,13 @@
 
     startIndex = 1;
     endIndex = len-10;
-    level = 7;
+    level = 6;
 
     % compute Gaussian blur stack   
     Gdown_stack = build_GDown_stack(vidFile, startIndex, endIndex, level);    
     % make pulse graph and count pulse via thresholding
-    cellx = 2;
-    celly = 2;
+    cellx = 3;
+    celly = 3;
     margin = 10;
     thr = 0.3*1e-3;
     figure(1);
@@ -34,6 +35,7 @@
     opts.slowMode = 0;
     opts.printEvery     = 25;
     K_target = 10;
+    data = Gdown_stack_noisy(:, cellx, celly, 1);
     datalen = length(data);
     datainterval = [margin:datalen-margin];
     A = dctmtx(datalen)';
