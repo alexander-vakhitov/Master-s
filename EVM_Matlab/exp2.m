@@ -1,5 +1,5 @@
 function exp2
-    vidFile = 'F:\SPBSU\Masters\EVM_Matlab\data\warped.avi';
+    vidFile = 'F:\SPBSU\Masters\EVM_Matlab\data\MVI_3779.mov';
 
     % Read video
     vid = VideoReader(vidFile);
@@ -31,8 +31,8 @@ function exp2
     nSORIterations = 30;
 
     para = [alpha,ratio,minWidth,nOuterFPIterations,nInnerFPIterations,nSORIterations];
-    
-    outName = 'warped.avi';
+%where to write the output    
+    outName = '.\output\warped_MVI_3779.avi';
     
     vidOut = VideoWriter(outName);
     vidOut.FrameRate = fr;
@@ -40,8 +40,9 @@ function exp2
     open(vidOut);
 
     
-    
-    for i = 1:len
+     for i = 100:125 
+  %  for i = 100:len
+        %cut out the first few seconds
         temp.cdata = read(vid, i);
         [rgbframe2, ~] = frame2im(temp);
         rgbframe2 = im2double(rgb2gray(rgbframe2));
