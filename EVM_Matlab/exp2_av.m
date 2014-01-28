@@ -1,6 +1,6 @@
 function exp2
     %vidFile = 'F:\SPBSU\Masters\EVM_Matlab\data\warped.avi';
-    vidFile = 'c:\ResearchProjects\pulse_data\3780_cut3.mp4';
+    vidFile = 'c:\ResearchProjects\pulse_data\3780_cut2.mp4';
 
     % Read video
     vid = VideoReader(vidFile);
@@ -28,7 +28,7 @@ function exp2
     rgbframe = rgb2gray(rgbframe);
     
     % set optical flow parameters (see Coarse2FineTwoFrames.m for the definition of the parameters)
-    alpha = 0.012;
+    alpha = 0.1;%0.012;
     ratio = 0.75;
     minWidth = 20;
     nOuterFPIterations = 7;
@@ -37,7 +37,7 @@ function exp2
 
     para = [alpha,ratio,minWidth,nOuterFPIterations,nInnerFPIterations,nSORIterations];
     
-    outName = 'warped_mar.avi';
+    outName = 'warped_mar2.avi';
     
     vidOut = VideoWriter(outName);
     vidOut.FrameRate = fr;
